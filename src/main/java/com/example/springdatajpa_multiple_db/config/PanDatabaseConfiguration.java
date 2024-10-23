@@ -1,6 +1,5 @@
 package com.example.springdatajpa_multiple_db.config;
 
-import com.example.springdatajpa_multiple_db.domain.creditcard.CreditCard;
 import com.example.springdatajpa_multiple_db.domain.pan.CreditCardPAN;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,7 +17,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.example.springdatajpa_multiple_db.repositories.cardholder",
+@EnableJpaRepositories(basePackages = "com.example.springdatajpa_multiple_db.repositories.pan",
         entityManagerFactoryRef = "panEntityManagerFactory",
         transactionManagerRef = "panTransactionManager") // enabling spring data repository package for a specific database
 public class PanDatabaseConfiguration {
@@ -32,7 +31,7 @@ public class PanDatabaseConfiguration {
 
     @Primary
     @Bean
-    public DataSource panHolderDataSource(@Qualifier(value = "panDataSourceProperties") DataSourceProperties panDataSourceProperties) {
+    public DataSource panDataSource(@Qualifier(value = "panDataSourceProperties") DataSourceProperties panDataSourceProperties) {
         return panDataSourceProperties.initializeDataSourceBuilder()
                 .type(HikariDataSource.class).build();
     }
