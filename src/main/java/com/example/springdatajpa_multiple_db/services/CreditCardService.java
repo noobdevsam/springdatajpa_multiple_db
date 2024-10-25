@@ -5,5 +5,6 @@ import com.example.springdatajpa_multiple_db.domain.creditcard.CreditCard;
 public interface CreditCardService {
 
     CreditCard getCreditCardById(Long id);
+    CreditCard saveCreditCard(CreditCard cc);
 
 }
