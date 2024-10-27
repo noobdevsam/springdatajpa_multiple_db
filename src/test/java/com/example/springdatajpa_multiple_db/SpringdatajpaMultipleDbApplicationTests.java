@@ -34,5 +34,11 @@ class SpringdatajpaMultipleDbApplicationTests {
 		assertThat(savedCC).isNotNull();
 		assertThat(savedCC.getId()).isNotNull();
 		assertThat(savedCC.getCreditCardNumber()).isNotNull();
+
+		var fetchedCreditCard = creditCardService.getCreditCardById(savedCC.getId());
+
+		assertThat(fetchedCreditCard).isNotNull();
+		assertThat(fetchedCreditCard.getId()).isNotNull();
+		assertThat(fetchedCreditCard.getCreditCardNumber()).isNotNull();
 	}
 }

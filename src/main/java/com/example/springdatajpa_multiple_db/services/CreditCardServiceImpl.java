@@ -18,10 +18,20 @@ public class CreditCardServiceImpl implements CreditCardService{
     private final CreditCardHolderRepository creditCardHolderRepository;
     private final CreditCardPANRepository creditCardPANRepository;
 
+    @Transactional
     @Override
     public CreditCard getCreditCardById(Long id) {
-        // todo impl
-        return null;
+        var creditcard = creditCardRepository.findById(id).orElseThrow();
+        var creditcardholder = creditCardHolderRepository.findByCreditCardId(id).orElseThrow();
+        var creditcardpan = creditCardPANRepository.findByCreditCardId(id).orElseThrow();
+
+        // populate transient fields from other databases
+        creditcard.setFirstName(creditcardholder.getFirstName());
+        creditcard.setLastName(creditcardholder.getLastName());
+        creditcard.setZipCode(creditcardholder.getZipCode());
+        creditcard.setCreditCardNumber(creditcardpan.getCreditCardNumber());
+
+        return creditcard;
     }
 
     @Transactional
